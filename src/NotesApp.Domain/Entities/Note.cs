@@ -10,6 +10,7 @@ namespace NotesApp.Domain.Entities
         public Guid Id { get; protected set; }
         public DateTime Created { get; protected set; }
         public DateTime Modified { get; protected set; }
+        public bool IsDeleted { get; protected set; } = false;
         public NoteVersion LastVersion 
             => _versions.OrderByDescending(version => version.VersionNo)
                         .First();
@@ -21,24 +22,25 @@ namespace NotesApp.Domain.Entities
         protected Note()
         {
         }
-        protected Note(Guid noteId) 
+        public Note(Guid noteId) 
         {
             Id = noteId;
             Created = DateTime.UtcNow;
-            Modified = DateTime.UtcNow;
+            UpdateModifyTime();
         }
 
         public void UpdateModifyTime()
             => Modified = DateTime.UtcNow;
-        
-        public Note CreateNewNote(Guid noteId)
-            => new Note(noteId);
 
         public void AddVersion(string title, string content) 
         {
             var versionNo = _versions.Count + 1;
             var newVersion = new NoteVersion(Id, versionNo, title, content);
             _versions.Add(newVersion);
+            UpdateModifyTime();
+        }
+        public void MarkAsDeleted() {
+            IsDeleted = true;
         }
     }
 }
