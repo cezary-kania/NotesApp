@@ -12,7 +12,7 @@ namespace NotesApp.Domain.Entities
         public DateTime Modified { get; protected set; }
         public string Status { get; protected set; }
         public int VersionNo { get; protected set; }
-        public Guid InitialNoteId { get; protected set; }
+        public Guid PrevVersionNoteId { get; protected set; }
         protected Note()
         {
         }
@@ -51,7 +51,7 @@ namespace NotesApp.Domain.Entities
             var noteCopy = new Note {
                 Id = noteId,
                 VersionNo = ++note.VersionNo,
-                InitialNoteId = (note.InitialNoteId == null) ? note.Id : note.InitialNoteId,
+                PrevVersionNoteId = note.Id,
                 Created = note.Created,
                 Modified = DateTime.UtcNow
             };
