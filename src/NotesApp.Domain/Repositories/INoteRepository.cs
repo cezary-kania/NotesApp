@@ -12,6 +12,5 @@ namespace NotesApp.Domain.Repositories
         Task<IEnumerable<Note>> GetAllAsync();
         Task CreateAsync(Note note);
         Task UpdateAsync(Note note);
-        Task DeleteAsync(Note note);
     }
 }
