@@ -11,6 +11,9 @@ namespace NotesApp.Domain.Entities
         public Guid Id { get; protected set; }
         public DateTime Created { get; protected set; }
         public DateTime Modified { get; protected set; }
+        public NoteVersion LastVersion 
+            => _versions.OrderByDescending(version => version.VersionNo)
+                        .First();
         public IEnumerable<NoteVersion> Versions
         {
             get => _versions;
@@ -38,9 +41,5 @@ namespace NotesApp.Domain.Entities
             var newVersion = new NoteVersion(Id, versionNo, title, content);
             _versions.Add(newVersion);
         }
-        
-        public NoteVersion GetLastVersion()
-            => _versions.OrderByDescending(version => version.VersionNo)
-                        .First();
     }
 }
