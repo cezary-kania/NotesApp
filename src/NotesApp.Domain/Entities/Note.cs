@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NotesApp.Domain.Enums;
 
 namespace NotesApp.Domain.Entities
 {
