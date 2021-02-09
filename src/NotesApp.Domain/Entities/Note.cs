@@ -6,14 +6,12 @@ namespace NotesApp.Domain.Entities
 {
     public class Note
     {
-        public ISet<NoteVersion> _versions = new HashSet<NoteVersion>();
+        private ISet<NoteVersion> _versions = new HashSet<NoteVersion>();
         public Guid Id { get; protected set; }
         public DateTime Created { get; protected set; }
         public DateTime Modified { get; protected set; }
         public bool IsDeleted { get; protected set; } = false;
-        public NoteVersion LastVersion 
-            => _versions.OrderByDescending(version => version.VersionNo)
-                        .First();
+        
         public IEnumerable<NoteVersion> Versions
         {
             get => _versions;
@@ -39,6 +37,11 @@ namespace NotesApp.Domain.Entities
             _versions.Add(newVersion);
             UpdateModifyTime();
         }
+
+        public NoteVersion GetLastVersion() 
+            => _versions.OrderByDescending(version => version.VersionNo)
+                        .FirstOrDefault();
+                        
         public void MarkAsDeleted() {
             IsDeleted = true;
         }
