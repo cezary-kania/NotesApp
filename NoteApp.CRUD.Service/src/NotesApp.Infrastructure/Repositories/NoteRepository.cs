@@ -31,7 +31,7 @@ namespace NotesApp.Infrastructure.Repositories
                 .SingleOrDefaultAsync(note => note.Id == id);
 
         public async Task<Note> GetAsync(string title)
-            => await _context.Notes.SingleOrDefaultAsync(note => note.Modified == DateTime.UtcNow); 
+            => await _context.Notes.SingleOrDefaultAsync(note => note.Modified == DateTime.UtcNow); // TODO: Fix that
         
         public async Task CreateAsync(Note note)
         {

@@ -2,11 +2,22 @@ version: '3.7'
 
 services: 
   crud-service:
-    build: ./src/NotesApp.Api
+    build: ./NoteApp.CRUD.Service/src/NotesApp.Api
     depends_on:
       - db
+    environment: 
+      - ASPNETCORE_URLS=http://*:5000
     ports:
       - 5000:5000
+      - 5001:5001
+  
+  # history-service:
+  #   build: ./NoteApp.History.Service/src/NotesApp.History.Service.Api
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - 5002:5002
+
   db:
     image: microsoft/mssql-server-linux:2017-latest
     environment: 
