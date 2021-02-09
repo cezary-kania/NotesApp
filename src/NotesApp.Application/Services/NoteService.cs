@@ -19,10 +19,10 @@ namespace NotesApp.Application.Services
             _mapper = mapper;
         }
         
-        public async Task<NoteDto> GetAsync(Guid id)
+        public async Task<NoteDetailsDto> GetAsync(Guid id)
         {
             var note = await _noteRepository.GetAsync(id);
-            return _mapper.Map<NoteDto>(note);
+            return _mapper.Map<NoteDetailsDto>(note);
         }
 
         public async Task<IEnumerable<NoteDto>> GetAllAsync()
@@ -35,7 +35,7 @@ namespace NotesApp.Application.Services
         {
             var note = await _noteRepository.GetAsync(title);
             if(note != null) throw new Exception($"Note with tite: '{title}' already exists.");
-            note = new Note(Guid.NewGuid());
+            note = new Note(noteId);
             note.AddVersion(title, content);
             await _noteRepository.CreateAsync(note);
         }

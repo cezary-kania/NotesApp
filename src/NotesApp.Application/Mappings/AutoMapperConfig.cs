@@ -10,6 +10,10 @@ namespace NotesApp.Application.Mappings
             => new MapperConfiguration(cfg => 
             {
                 cfg.CreateMap<Note, NoteDto>()
+                    .ForMember(dest => dest.Title, 
+                        opt => opt.MapFrom(src => src.GetLastVersion().Title)
+                    );
+                cfg.CreateMap<Note, NoteDetailsDto>()
                     .ForMember(dest => dest.LastVersion, 
                         opt => opt.MapFrom(src => src.GetLastVersion())
                     );
