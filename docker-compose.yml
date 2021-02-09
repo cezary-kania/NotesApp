@@ -1,0 +1,16 @@
+version: '3.7'
+
+services: 
+  crud-service:
+    build: ./src/NotesApp.Api
+    depends_on:
+      - db
+    ports:
+      - 5000:5000
+  db:
+    image: microsoft/mssql-server-linux:2017-latest
+    environment: 
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=My_password123
+    ports:
+      - 1433:1433
