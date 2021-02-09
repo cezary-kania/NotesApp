@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NotesApp.Domain.Entities;
@@ -19,11 +20,13 @@ namespace NotesApp.Infrastructure.Repositories
 
         public async Task<IEnumerable<Note>> GetAllAsync()
             => await _context.Notes
+                .Where(n => !n.IsDeleted)
                 .Include(n => n.Versions)
                 .ToListAsync();
 
         public async Task<Note> GetAsync(Guid id)
             => await _context.Notes
+                .Where(n => !n.IsDeleted)
                 .Include(n => n.Versions)
                 .SingleOrDefaultAsync(note => note.Id == id);
 
