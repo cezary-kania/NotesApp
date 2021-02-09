@@ -9,8 +9,12 @@ namespace NotesApp.Application.Mappings
         public static IMapper Init()
             => new MapperConfiguration(cfg => 
             {
-                cfg.CreateMap<Note, NoteDto>();
+                cfg.CreateMap<Note, NoteDto>()
+                    .ForMember(dest => dest.LastVersion, 
+                        opt => opt.MapFrom(src => src.GetLastVersion())
+                    );
                 cfg.CreateMap<NoteVersion, NoteVersionDto>();
+                    
             })
             .CreateMapper();
     }
