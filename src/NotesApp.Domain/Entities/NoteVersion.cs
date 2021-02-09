@@ -19,11 +19,13 @@ namespace NotesApp.Domain.Entities
         public void SetTitle(string title)
         {
             if(string.IsNullOrWhiteSpace(title)) throw new Exception("Title can not be empty.");
+            Title = title;
         }
 
         public void SetContent(string content)
         {
             if(string.IsNullOrWhiteSpace(content)) throw new Exception("Content can not be empty.");
+            Content = content;
         }
     }
 }
