@@ -6,6 +6,8 @@ using NotesApp.Application.DTOs;
 using NotesApp.Domain.Repositories;
 using NotesApp.Domain.Entities;
 using NotesApp.Application.Services.Interfaces;
+using NotesApp.Application.Services.Exceptions;
+using NotesApp.Application.Extentions;
 
 namespace NotesApp.Application.Services
 {
@@ -33,8 +35,9 @@ namespace NotesApp.Application.Services
 
         public async Task CreateAsync(Guid noteId, string title, string content)
         {
+            ValidateNoteParams(title, content);
             var note = await _noteRepository.GetAsync(title);
-            if(note != null) throw new Exception($"Note with tite: '{title}' already exists.");
+            if(note != null) throw new ServiceException($"Note with tite: '{title}' already exists.");
             note = new Note(noteId);
             note.AddVersion(title, content);
             await _noteRepository.CreateAsync(note);
@@ -43,17 +46,32 @@ namespace NotesApp.Application.Services
         public async Task DeleteAsync(Guid noteId)
         {
             var note = await _noteRepository.GetAsync(noteId);
-            if(note == null) throw new Exception($"Note with id: '{noteId}' does not exist.");
+            if(note == null) throw new ServiceException($"Note with id: '{noteId}' does not exist.");
             note.MarkAsDeleted();
             await _noteRepository.UpdateAsync(note);
         }
 
         public async Task UpdateAsync(Guid noteId, string title, string content)
         {
+            ValidateNoteParams(title, content);
             var note = await _noteRepository.GetAsync(noteId);
-            if(note == null) throw new Exception($"Note with id: '{noteId}' does not exist.");
+            if(note == null) throw new ServiceException($"Note with id: '{noteId}' does not exist.");
             note.AddVersion(title, content);
             await _noteRepository.UpdateAsync(note);
+        }
+
+        private void ValidateNoteParams(string title, string content)
+        {
+            ValidateValue(title, 100, nameof(title));
+            ValidateValue(content, 1000, nameof(content));
+        }
+        
+        private void ValidateValue(string value, int maxLength, string paramName)
+        {
+            if(!value.IsValid(maxLength)) 
+            {
+                throw new ServiceException($"Note '{paramName}' is not valid: '{paramName}' can't be empty or longer than {maxLength} chars.");
+            } 
         }
     }
 }
