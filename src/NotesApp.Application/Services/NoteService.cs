@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using NotesApp.Application.DTOs;
 using NotesApp.Domain.Repositories;
 using NotesApp.Domain.Entities;
+using NotesApp.Application.Services.Interfaces;
 
-namespace NotesApp.Application.Services.Interfaces
+namespace NotesApp.Application.Services
 {
     public class NoteService : INoteService
     {
@@ -36,6 +37,7 @@ namespace NotesApp.Application.Services.Interfaces
             if(note != null) throw new Exception($"Note with tite: '{title}' already exists.");
             note = new Note(Guid.NewGuid());
             note.AddVersion(title, content);
+            await _noteRepository.CreateAsync(note);
         }
 
         public async Task DeleteAsync(Guid noteId)
