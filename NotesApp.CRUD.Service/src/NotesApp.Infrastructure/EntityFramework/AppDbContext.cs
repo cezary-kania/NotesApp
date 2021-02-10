@@ -15,10 +15,10 @@ namespace NotesApp.Infrastructure.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var notesBuilder = modelBuilder.Entity<Note>();
-            notesBuilder.HasKey(n => n.Id);            
-            var notesVersionBuilder = modelBuilder.Entity<NoteVersion>();
-            notesVersionBuilder.HasKey(nv => new {nv.NoteId, nv.VersionNo});
+            modelBuilder.Entity<Note>()
+                .HasKey(n => n.Id);            
+            modelBuilder.Entity<NoteVersion>()
+                .HasKey(nv => new {nv.NoteId, nv.VersionNo});
         }
     }
 }
