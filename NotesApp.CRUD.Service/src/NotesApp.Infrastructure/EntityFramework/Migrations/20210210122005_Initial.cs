@@ -28,7 +28,8 @@ namespace NotesApp.Infrastructure.EntityFramework.Migrations
                     NoteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VersionNo = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VersionCreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

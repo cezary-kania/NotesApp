@@ -7,5 +7,6 @@ namespace NotesApp.History.Service.Application.DTOs
         public int VersionNo { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public DateTime VersionCreatedAt { get; set; }
     }
 }

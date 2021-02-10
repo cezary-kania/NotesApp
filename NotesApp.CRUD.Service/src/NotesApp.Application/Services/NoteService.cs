@@ -36,9 +36,7 @@ namespace NotesApp.Application.Services
         public async Task CreateAsync(Guid noteId, string title, string content)
         {
             ValidateNoteParams(title, content);
-            var note = await _noteRepository.GetAsync(title);
-            if(note != null) throw new ServiceException($"Note with tite: '{title}' already exists.");
-            note = new Note(noteId);
+            var note = new Note(noteId);
             note.AddVersion(title, content);
             await _noteRepository.CreateAsync(note);
         }

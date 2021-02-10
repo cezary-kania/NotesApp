@@ -53,6 +53,9 @@ namespace NotesApp.Infrastructure.EntityFramework.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("VersionCreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("NoteId", "VersionNo");
 
                     b.ToTable("NoteVersions");

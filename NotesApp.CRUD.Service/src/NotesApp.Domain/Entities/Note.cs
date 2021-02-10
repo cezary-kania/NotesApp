@@ -24,7 +24,7 @@ namespace NotesApp.Domain.Entities
         {
             Id = noteId;
             Created = DateTime.UtcNow;
-            UpdateModifyTime();
+            Modified = Created;
         }
 
         public void UpdateModifyTime()
@@ -32,10 +32,12 @@ namespace NotesApp.Domain.Entities
 
         public void AddVersion(string title, string content) 
         {
-            var versionNo = _versions.Count + 1;
-            var newVersion = new NoteVersion(Id, versionNo, title, content);
-            _versions.Add(newVersion);
             UpdateModifyTime();
+            var versionNo = _versions.Count + 1;
+            var versionCreatedAt = Modified;
+            var newVersion = new NoteVersion(Id, versionNo, title, content, versionCreatedAt);
+            _versions.Add(newVersion);
+            
         }
 
         public NoteVersion GetLastVersion() 

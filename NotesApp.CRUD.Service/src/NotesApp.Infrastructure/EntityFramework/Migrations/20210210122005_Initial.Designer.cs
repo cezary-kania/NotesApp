@@ -10,7 +10,7 @@ using NotesApp.Infrastructure.EntityFramework;
 namespace NotesApp.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210209084027_Initial")]
+    [Migration("20210210122005_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,9 @@ namespace NotesApp.Infrastructure.EntityFramework.Migrations
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("VersionCreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("NoteId", "VersionNo");
 

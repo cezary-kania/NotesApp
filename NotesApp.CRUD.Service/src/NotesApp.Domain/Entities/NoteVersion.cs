@@ -8,11 +8,13 @@ namespace NotesApp.Domain.Entities
         public int VersionNo { get; protected set; }
         public string Title { get; protected set; }
         public string Content { get; protected set; }
+        public DateTime VersionCreatedAt { get; protected set; }
 
-        public NoteVersion(Guid noteId, int versionNo, string title, string content)
+        public NoteVersion(Guid noteId, int versionNo, string title, string content, DateTime versionCreatedAt)
         {
             NoteId = noteId;
             VersionNo = versionNo;
+            VersionCreatedAt = versionCreatedAt;
             SetTitle(title);
             SetContent(content);
         }

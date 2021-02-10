@@ -8,7 +8,6 @@ namespace NotesApp.Domain.Repositories
     public interface INoteRepository
     {
         Task<Note> GetAsync(Guid id);
-        Task<Note> GetAsync(string title);
         Task<IEnumerable<Note>> GetAllAsync();
         Task CreateAsync(Note note);
         Task UpdateAsync(Note note);
