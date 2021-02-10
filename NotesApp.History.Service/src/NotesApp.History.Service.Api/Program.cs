@@ -20,8 +20,8 @@ namespace NotesApp.History.Service.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseUrls("https://*:5003","https://*:5002");
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://localhost:5003");
                 });
     }
 }

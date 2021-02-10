@@ -2,26 +2,33 @@ version: '3.7'
 
 services: 
   crud-service:
-    build: ./NoteApp.CRUD.Service/src/NotesApp.Api
-    depends_on:
-      - db
-    environment: 
-      - ASPNETCORE_URLS=http://*:5000
+    build: 
+      context: .
+      dockerfile: NotesApp.CRUD.Service/src/NotesApp.Api/Dockerfile
+    environment:
+      - ASPNETCORE_HTTPS_PORT=https://+:5001
+      - ASPNETCORE_URLS=http://+:5000
     ports:
       - 5000:5000
       - 5001:5001
-  
-  # history-service:
-  #   build: ./NoteApp.History.Service/src/NotesApp.History.Service.Api
-  #   depends_on:
-  #     - db
-  #   ports:
-  #     - 5002:5002
+    depends_on:
+      - db
+    restart: on-failure
+
+  history-service:
+    build: 
+      context: .
+      dockerfile: NotesApp.History.Service/src/NotesApp.History.Service.Api/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:5003
+    ports:
+      - 5003:5003
+    depends_on:
+      - db
+    restart: on-failure
 
   db:
-    image: microsoft/mssql-server-linux:2017-latest
+    image: mcr.microsoft.com/mssql/server
     environment: 
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=My_password123
-    ports:
-      - 1433:1433
+      - "ACCEPT_EULA=Y"
+      - "SA_PASSWORD=My_password123"
