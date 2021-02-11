@@ -6,11 +6,9 @@ services:
       context: .
       dockerfile: NotesApp.CRUD.Service/src/NotesApp.Api/Dockerfile
     environment:
-      - ASPNETCORE_HTTPS_PORT=https://+:5001
       - ASPNETCORE_URLS=http://+:5000
     ports:
       - 5000:5000
-      - 5001:5001
     depends_on:
       - db
     restart: on-failure

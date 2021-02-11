@@ -42,7 +42,7 @@ namespace NotesApp.Api
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NotesApp.Api v1"));
             
             app.UseCustomExceptionHandler();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
