@@ -5,8 +5,6 @@ services:
     build: 
       context: .
       dockerfile: NotesApp.CRUD.Service/src/NotesApp.Api/Dockerfile
-    environment:
-      - ASPNETCORE_URLS=http://+:5000
     ports:
       - 5000:5000
     depends_on:
@@ -17,14 +15,21 @@ services:
     build: 
       context: .
       dockerfile: NotesApp.History.Service/src/NotesApp.History.Service.Api/Dockerfile
-    environment:
-      - ASPNETCORE_URLS=http://+:5003
     ports:
       - 5003:5003
     depends_on:
       - db
     restart: on-failure
-
+    
+  webui-service:
+    build:
+      context: .
+      dockerfile: NotesApp.WebUI.Service/Dockerfile
+    ports: 
+      - 8080:80
+    depends_on: 
+      - crud-service
+  
   db:
     image: mcr.microsoft.com/mssql/server
     environment: 
