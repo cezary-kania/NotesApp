@@ -19,14 +19,6 @@ namespace NotesApp.History.Service.Infrastructure.EntityFramework
             notesBuilder.HasKey(n => n.Id);            
             var notesVersionBuilder = modelBuilder.Entity<NoteVersion>();
             notesVersionBuilder.HasKey(nv => new {nv.NoteId, nv.VersionNo});
-            
-            //Db seeding
-            if(Database.IsInMemory()) 
-            {
-                modelBuilder.Entity<Note>().HasData(
-                    null // TODO: Replace with real data 
-                );
-            }
         }
     }
 }

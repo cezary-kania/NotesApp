@@ -19,8 +19,7 @@ namespace NotesApp.IntegrationTests.Tests
         
         public NotesControllerTestsBase()
         {
-            Client = new CustomWebAppFactory<Startup>()
-                .CreateClient();
+            Client = new WebAppFactory().CreateClient();
         }
 
         [Fact]

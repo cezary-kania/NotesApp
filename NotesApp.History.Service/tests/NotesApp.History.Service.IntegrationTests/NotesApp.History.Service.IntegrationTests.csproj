@@ -7,13 +7,13 @@
   <ItemGroup>
     <Content Include="appsettings.json" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="Always" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="fluentassertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -23,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\NotesApp.Api\NotesApp.Api.csproj" />
-    <ProjectReference Include="..\..\src\NotesApp.Application\NotesApp.Application.csproj" />
-    <ProjectReference Include="..\..\src\NotesApp.Infrastructure\NotesApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\NotesApp.History.Service.Api\NotesApp.History.Service.Api.csproj" />
+    <ProjectReference Include="..\..\src\NotesApp.History.Service.Application\NotesApp.History.Service.Application.csproj" />
+    <ProjectReference Include="..\..\src\NotesApp.History.Service.Infrastructure\NotesApp.History.Service.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

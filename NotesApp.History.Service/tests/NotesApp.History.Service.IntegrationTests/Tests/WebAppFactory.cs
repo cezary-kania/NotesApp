@@ -1,15 +1,19 @@
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NotesApp.Infrastructure.EntityFramework;
+using NotesApp.History.Service.Api;
+using NotesApp.History.Service.Infrastructure.EntityFramework;
 
-namespace NotesApp.IntegrationTests.Tests
+namespace NotesApp.History.Service.IntegrationTests.Tests
 {
-    public class CustomWebAppFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
+    public class WebAppFactory : WebApplicationFactory<Startup>
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
+            builder.UseContentRoot(".");
+            base.ConfigureWebHost(builder);
             builder.ConfigureServices(services => 
             {
                 var sp = services.BuildServiceProvider();
@@ -19,10 +23,11 @@ namespace NotesApp.IntegrationTests.Tests
                     dbCtx.SeedNotes();
                 }
             });
-            var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings-tests.json")
-                .Build();
-            builder.UseConfiguration(config);
+        }
+        protected override IWebHostBuilder CreateWebHostBuilder()
+        {
+            return WebHost.CreateDefaultBuilder()
+                .UseStartup<Startup>();
         }
     }
 }
