@@ -32,8 +32,8 @@ namespace NotesApp.Domain.Entities
 
         public void AddVersion(string title, string content) 
         {
-            UpdateModifyTime();
             var versionNo = _versions.Count + 1;
+            if(versionNo > 1) UpdateModifyTime();
             var versionCreatedAt = Modified;
             var newVersion = new NoteVersion(Id, versionNo, title, content, versionCreatedAt);
             _versions.Add(newVersion);

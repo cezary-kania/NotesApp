@@ -1,0 +1,16 @@
+.note-title {
+    cursor: pointer;
+}
+
+.note-title:hover {
+    color: #198754;
+}
+
+.note-tb-header {
+    cursor: pointer;
+}
+
+.note-tb-header:hover {
+    color: #26dd88;
+    transition: 0.3s;
+}
