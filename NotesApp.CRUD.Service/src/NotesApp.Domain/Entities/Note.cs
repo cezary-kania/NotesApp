@@ -46,6 +46,7 @@ namespace NotesApp.Domain.Entities
                         
         public void MarkAsDeleted() {
             IsDeleted = true;
+            UpdateModifyTime();
         }
     }
 }
