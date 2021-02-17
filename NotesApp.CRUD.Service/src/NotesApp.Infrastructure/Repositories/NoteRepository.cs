@@ -29,6 +29,17 @@ namespace NotesApp.Infrastructure.Repositories
                 .Where(n => !n.IsDeleted)
                 .Include(n => n.Versions)
                 .SingleOrDefaultAsync(note => note.Id == id);
+        
+        public async Task<Note> GetAsync(string title)
+            => await _context.Notes
+                .Where(n => !n.IsDeleted)
+                .Include(n => n.Versions)
+                .Where(note => 
+                    note.Versions
+                        .OrderByDescending(version => version.VersionNo)
+                        .FirstOrDefault().Title == title
+                )
+                .SingleOrDefaultAsync();
 
         public async Task CreateAsync(Note note)
         {

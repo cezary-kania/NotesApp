@@ -23,10 +23,17 @@ namespace NotesApp.Api.Controllers
             return Ok(notes);
         }
 
-        [HttpGet("{noteId}")]
-        public async Task<IActionResult> Get(Guid noteId)
+        [HttpGet("n/{noteId:guid}")]
+        public async Task<IActionResult> GetById(Guid noteId)
         {
             var note = await _noteService.GetAsync(noteId);
+            if(note == null) return NotFound();
+            return Ok(note);
+        }
+        [HttpGet("n/")]
+        public async Task<IActionResult> GetByTitle([FromQuery] string title)
+        {
+            var note = await _noteService.GetAsync(title);
             if(note == null) return NotFound();
             return Ok(note);
         }

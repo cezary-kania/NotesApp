@@ -8,6 +8,7 @@ namespace NotesApp.Application.Services.Interfaces
     public interface INoteService
     {
         Task<NoteDetailsDto> GetAsync(Guid id);
+        Task<NoteDetailsDto> GetAsync(string title);
         Task<IEnumerable<NoteDto>> GetAllAsync();
         Task CreateAsync(Guid noteId, string title, string content);
         Task UpdateAsync(Guid noteId, string title, string content);
