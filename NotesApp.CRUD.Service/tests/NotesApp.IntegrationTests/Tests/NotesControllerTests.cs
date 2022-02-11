@@ -30,7 +30,7 @@ namespace NotesApp.IntegrationTests.Tests
 
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.OK);
+                .Be(HttpStatusCode.OK);
 
             var responseString = await response.Content.ReadAsStringAsync();
             var notes = JsonConvert.DeserializeObject<IEnumerable<NoteDto>>(responseString).ToList();
@@ -66,7 +66,7 @@ namespace NotesApp.IntegrationTests.Tests
 
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.Created);
+                .Be(HttpStatusCode.Created);
 
             var newNoteLoc = response.Headers.Location.ToString();
             response = await Client.GetAsync(newNoteLoc);
@@ -100,7 +100,7 @@ namespace NotesApp.IntegrationTests.Tests
             response = await Client.GetAsync(newNoteLoc);
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.OK);
+                .Be(HttpStatusCode.OK);
         }
         
         [Fact]
@@ -118,12 +118,12 @@ namespace NotesApp.IntegrationTests.Tests
             response = await Client.DeleteAsync(newNoteLoc);
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.NoContent);
+                .Be(HttpStatusCode.NoContent);
             //Searching for deleted note should fail
             response = await Client.GetAsync(newNoteLoc);
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.NotFound);
+                .Be(HttpStatusCode.NotFound);
         }
 
         [Fact]
@@ -146,7 +146,7 @@ namespace NotesApp.IntegrationTests.Tests
             response = await Client.PutAsync(newNoteLoc,serializedNote);
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.NoContent);
+                .Be(HttpStatusCode.NoContent);
             
             response = await Client.GetAsync(newNoteLoc);
             
@@ -178,7 +178,7 @@ namespace NotesApp.IntegrationTests.Tests
             response = await Client.PutAsync(newNoteLoc,serializedNote);
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.NoContent);
+                .Be(HttpStatusCode.NoContent);
             
             response = await Client.GetAsync(newNoteLoc);
             
@@ -214,7 +214,7 @@ namespace NotesApp.IntegrationTests.Tests
             response = await Client.PutAsync(newNoteLoc,serializedNote);
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.NoContent);
+                .Be(HttpStatusCode.NoContent);
             
             response = await Client.GetAsync(newNoteLoc);
             
@@ -239,7 +239,7 @@ namespace NotesApp.IntegrationTests.Tests
 
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.NotFound);
+                .Be(HttpStatusCode.NotFound);
         }
 
         [Fact]
@@ -251,7 +251,7 @@ namespace NotesApp.IntegrationTests.Tests
 
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.NotFound);
+                .Be(HttpStatusCode.NotFound);
         }
 
         [Fact]
@@ -276,7 +276,7 @@ namespace NotesApp.IntegrationTests.Tests
             response = await Client.PutAsync(invalidUrl,serializedNote);
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.NotFound);
+                .Be(HttpStatusCode.NotFound);
         }
 
         [Fact]
@@ -300,7 +300,7 @@ namespace NotesApp.IntegrationTests.Tests
             response = await Client.PutAsync(newNoteLoc,serializedNote);
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.BadRequest);
+                .Be(HttpStatusCode.BadRequest);
         }
 
         [Fact]
@@ -324,7 +324,7 @@ namespace NotesApp.IntegrationTests.Tests
             response = await Client.PutAsync(newNoteLoc,serializedNote);
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.BadRequest);
+                .Be(HttpStatusCode.BadRequest);
         }
 
         [Fact]
@@ -340,7 +340,7 @@ namespace NotesApp.IntegrationTests.Tests
            
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.BadRequest);
+                .Be(HttpStatusCode.BadRequest);
         }
 
         [Fact]
@@ -356,7 +356,7 @@ namespace NotesApp.IntegrationTests.Tests
            
             response.StatusCode
                 .Should()
-                .BeEquivalentTo(HttpStatusCode.BadRequest);
+                .Be(HttpStatusCode.BadRequest);
         }
 
         private static StringContent SerializeData(object data)
