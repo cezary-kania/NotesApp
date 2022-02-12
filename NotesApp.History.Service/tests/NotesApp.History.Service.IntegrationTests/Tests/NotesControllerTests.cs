@@ -26,7 +26,7 @@ namespace NotesApp.History.Service.IntegrationTests.Tests
             var response = await Client.GetAsync($"/NoteHistory/{noteId}");
             response.StatusCode
                     .Should()
-                    .BeEquivalentTo(HttpStatusCode.OK);
+                    .Be(HttpStatusCode.OK);
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace NotesApp.History.Service.IntegrationTests.Tests
             var response = await Client.GetAsync($"NoteHistory/{noteId}");
             response.StatusCode
                     .Should()
-                    .BeEquivalentTo(HttpStatusCode.NotFound);
+                    .Be(HttpStatusCode.NotFound);
         } 
     }
 }
