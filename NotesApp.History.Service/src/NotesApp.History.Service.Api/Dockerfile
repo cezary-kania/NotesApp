@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 ENV ASPNETCORE_URLS=http://+:5003
 WORKDIR /app
 EXPOSE 5003
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["NotesApp.History.Service/src/NotesApp.History.Service.Api/NotesApp.History.Service.Api.csproj", "src/NotesApp.History.Service.Api/"]
 COPY ["NotesApp.History.Service/src/NotesApp.History.Service.Application/NotesApp.History.Service.Application.csproj", "src/NotesApp.History.Service.Application/"]
