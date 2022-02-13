@@ -1,8 +1,8 @@
 # Notes application
 ***
 ## Requirements
-* ##### **Docker (Tested on Docker Desktop - versions 20.10.2 and 19.03.13)** 
-* ##### **Dotnet SDK (5.0.+)** *(required only if you want run integration tests)*
+* ##### **Docker** 
+* ##### **Dotnet SDK (6.0.\*)** *(required only if you want run integration tests)*
 ***
 ## Building and running solution
 
@@ -12,16 +12,29 @@ Presented solution works on docker containers. After cloning this repository and
 When the solution starting process is completed, in your docker desktop you should see something similar to:
 ![Docker desktop](https://i.imgur.com/YlOxn13.png)
 
-### To build solution (optional):
+### Build solution
+
+#### Add .env file with secret password
+```
+SECRET_PASSWORD=Passw0rd!
+```
+
+#### Generate https certificate
+```
+dotnet dev-certs https --clean
+dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p Pa$$w0rd!
+dotnet dev-certs https --trust
+```
+#### Build docker images
 ```
 $ docker-compose build 
 ```
-### To run solution:
+### Run solution
 ```
 $ docker-compose up
 ```
-### To run tests:
-#### Shell (i.e git bash):
+### Run tests
+#### Shell (i.e git bash)
 ``` 
 $ chmod +x scripts/test.sh (if it's required)
 $ ./scripts/test.sh
@@ -31,23 +44,23 @@ $ ./scripts/test.sh
 
 ### Description
 ##### Services are available on addresses:
-* ###### **CRUD service** - *http:://localhost:5000*
-* ###### **Note history service** - *http:://localhost:5003*
-* ###### **WebUI service** - *http:://localhost:8080*
+* ###### **CRUD service** - *https://localhost:4431*
+* ###### **Note history service** - *https://localhost:4432*
+* ###### **WebUI service** - *http://localhost:8080*
 When solution starts, by default there are no notes in database, so list in WebUI service is empty.
 Documentation of both CRUD and history service Api, can be found on:
-*http:://localhost:5000/swagger/index.html* 
+*https://localhost:4431/swagger/index.html* 
 and 
-*http:://localhost:5003/swagger/index.html*
+*https://localhost:4432/swagger/index.html*
 ![Api docs](https://imgur.com/wdaqxPp.png)
 It's interactive and pretty simple in use, so there's no need to explain details.
 After executing any command, you will see CURL examples.
 
 #### WebUI
 You can access webui on *http:://localhost:8080*
-Example:
+Example
 ![webui_1](https://imgur.com/r6PkVlL.png)
-After you click on note title, you will see modal with note title and content:
+After you click on note title, you will see modal with note title and content
 ![webui_2](https://imgur.com/EOFIjMi.png)
 Notes can be sorted by clicking on column headers (click twice to change order). By default, notes are sorted ascending by title.
 ![webui_2](https://imgur.com/j2isRwL.png)
