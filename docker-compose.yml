@@ -5,21 +5,37 @@ services:
     build: 
       context: .
       dockerfile: NotesApp.CRUD.Service/src/NotesApp.Api/Dockerfile
-    ports:
-      - 5000:5000
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=crud-service-db;Database=NotesApp;User=sa;Password=${SECRET_PASSWORD};MultipleActiveResultSets=true;Trusted_Connection=false;
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SECRET_PASSWORD}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     depends_on:
-      - db
+      - crud-service-db
     restart: on-failure
+    ports:
+      - 8001:80
+      - 4431:443
+    volumes:
+      - ~/.aspnet/https:/https:ro
 
   history-service:
     build: 
       context: .
       dockerfile: NotesApp.History.Service/src/NotesApp.History.Service.Api/Dockerfile
-    ports:
-      - 5003:5003
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=history-service-db;Database=NotesApp;User=sa;Password=${SECRET_PASSWORD};MultipleActiveResultSets=true;Trusted_Connection=false;
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SECRET_PASSWORD}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
     depends_on:
-      - db
+      - history-service-db
     restart: on-failure
+    ports:
+      - 8002:80
+      - 4432:443
+    volumes:
+      - ~/.aspnet/https:/https:ro
     
   webui-service:
     build:
@@ -30,8 +46,14 @@ services:
     depends_on: 
       - crud-service
   
-  db:
+  crud-service-db:
     image: mcr.microsoft.com/mssql/server
     environment: 
       - "ACCEPT_EULA=Y"
-      - "SA_PASSWORD=My_password123"
+      - "SA_PASSWORD=${SECRET_PASSWORD}"
+
+  history-service-db:
+    image: mcr.microsoft.com/mssql/server
+    environment: 
+      - "ACCEPT_EULA=Y"
+      - "SA_PASSWORD=${SECRET_PASSWORD}"
