@@ -1,5 +1,5 @@
 class NoteService {
-    static apiURL = 'http://localhost:5000';
+    static apiURL = 'https://localhost:4431';
 
     static async GetNoteDetails(noteId) {
         try {
